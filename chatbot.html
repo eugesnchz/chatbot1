@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Chatbot Fácil</title>
+  <style>
+    body { font-family: Arial; margin: 50px; }
+    #chatlog { border: 1px solid #ccc; height: 200px; overflow-y: auto; padding: 10px; }
+    #userInput { width: 70%; padding: 5px; }
+    button { padding: 5px 10px; }
+  </style>
+</head>
+<body>
+  <h2>Chatbot Básico</h2>
+  <div id="chatlog"></div>
+  <input id="userInput" placeholder="Escribe aquí..." />
+  <button onclick="sendMessage()">Enviar</button>
+
+  <script>
+    function sendMessage() {
+      var input = document.getElementById('userInput');
+      var text = input.value.trim();
+      if (text === '') return;
+
+      addMessage('Tú', text);
+      input.value = '';
+
+      var response = getResponse(text.toLowerCase());
+      setTimeout(function() {
+        addMessage('Bot', response);
+      }, 500);
+    }
+
+    function addMessage(sender, message) {
+      var chatlog = document.getElementById('chatlog');
+      chatlog.innerHTML += '<p><b>' + sender + ':</b> ' + message + '</p>';
+      chatlog.scrollTop = chatlog.scrollHeight;
+    }
+
+    function getResponse(text) {
+      if (text.indexOf('hola') !== -1) return '¡Hola! ¿Cómo estás?';
+      if (text.indexOf('adiós') !== -1) return '¡Adiós! Que tengas un buen día.';
+      if (text.indexOf('nombre') !== -1) return 'Me llamo Chatbot Fácil.';
+      if (text.indexOf('gracias') !== -1) return 'De nada, estoy aquí para ayudarte.';
+      return 'No entendí lo que dijiste.';
+    }
+  </script>
+</body>
+</html>
